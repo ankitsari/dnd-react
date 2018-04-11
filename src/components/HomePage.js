@@ -118,8 +118,14 @@ class HomePage extends React.Component {
         }
       }))
     }
-    updateComponents(body)
-    this.setState({components: res.components});
+
+    updateComponents(body, (response)=> {
+      if(response && response.res && response.res.status === 200) {
+        this.setState({components: res.components});
+      } else {
+        console.log(response)
+      }
+    })
 
   }
 

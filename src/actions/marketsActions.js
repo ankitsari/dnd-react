@@ -50,14 +50,11 @@ export function fetchComponents() {
   }
 }
 
-export function updateComponents(data) {
+export function updateComponents(data, callback) {
   const headers = {"Content-Type": "application/json"}
   return axios.put(process.env.REACT_APP_API_URL + '/Items/', JSON.stringify(data),  {headers}).then(res => {
-    if (res.status !== 200) {
-      console.log(`There was a problem: ${res.status}`);
-      return;
-    }
+    callback({res:res})
   }, err => {
-
+    callback({err:err})
   });
 }
