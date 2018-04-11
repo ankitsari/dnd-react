@@ -119,11 +119,13 @@ class HomePage extends React.Component {
       }))
     }
 
+    const components = this.state.components
+    this.setState({components: res.components, error: ''});
+
     updateComponents(body, (response)=> {
       if(response && response.res && response.res.status === 200) {
-        this.setState({components: res.components});
       } else {
-        console.log(response)
+        this.setState({components: components, error: 'Some error occur!'})
       }
     })
 
