@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import {DragDropContext} from 'react-beautiful-dnd';
-import { fetchComponents } from '../actions/marketsActions';
+import { fetchComponents, updateComponents } from '../actions/marketsActions';
 import '../assets/stylesheets/components/HomePage.css';
 import MainContainer from './MainContainer';
 
@@ -89,6 +89,36 @@ class HomePage extends React.Component {
       destination: result.destination,
     });
 
+
+    let body = []
+    if (result.source.droppableId === result.destination.droppableId) {
+      let current = res.components.find(x=>x.BucketId === parseInt(result.source.droppableId, 10));
+      body = current.Items.map((item, index)=>{
+        return {
+          ItemId: item.ItemId,
+          BucketId: current.BucketId,
+          OrderInLane: index + 1,
+        }
+      })
+    } else {
+      let current = res.components.find(x=>x.BucketId === parseInt(result.source.droppableId, 10));
+      let next = res.components.find(x=>x.BucketId === parseInt(result.destination.droppableId, 10));
+      body = current.Items.map((item, index)=>{
+        return {
+          ItemId: item.ItemId,
+          BucketId: current.BucketId,
+          OrderInLane: index + 1,
+        }
+      })
+      body = body.concat(next.Items.map((item, index)=>{
+        return {
+          ItemId: item.ItemId,
+          BucketId: next.BucketId,
+          OrderInLane: index + 1,
+        }
+      }))
+    }
+    updateComponents(body)
     this.setState({components: res.components});
 
   }
@@ -96,6 +126,9 @@ class HomePage extends React.Component {
   componentDidMount() {
     this.props.fetchComponents().then(res => {
       let components = _.orderBy(this.props.components, ['OrderInVertical'], ['asc']);
+      components.forEach(component=> {
+        component.Items = _.orderBy(component.Items, ['OrderInLane'], ['asc'])
+      })
       this.setState({ components: components, loading: false });
     });
   }

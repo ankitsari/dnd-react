@@ -38,7 +38,7 @@ export function fetchCompanies() {
 
 export function fetchComponents() {
   return dispatch => {
-    return axios.get(process.env.REACT_APP_API_URL).then(res => {
+    return axios.get(process.env.REACT_APP_API_URL + '/buckets').then(res => {
       if (res.status !== 200) {
         console.log(`There was a problem: ${res.status}`);
         return;
@@ -48,4 +48,16 @@ export function fetchComponents() {
 
     });
   }
+}
+
+export function updateComponents(data) {
+  const headers = {"Content-Type": "application/json"}
+  return axios.put(process.env.REACT_APP_API_URL + '/Items/', JSON.stringify(data),  {headers}).then(res => {
+    if (res.status !== 200) {
+      console.log(`There was a problem: ${res.status}`);
+      return;
+    }
+  }, err => {
+
+  });
 }
