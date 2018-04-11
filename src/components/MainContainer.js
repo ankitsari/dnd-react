@@ -16,13 +16,14 @@ const MainContainer = ({bucket: {BucketId, Items, Description}}) => {
     <Droppable key={BucketId} direction={'horizontal'} droppableId={String(BucketId)}>
       {(provided, snapshot) => (
         <div
-          ref={provided.innerRef}
-          style={getListStyle(snapshot.isDraggingOver)}
           className="markets-list__container">
           <div className="markets-list__title">
             <span>{Description}</span>
           </div>
+          <div ref={provided.innerRef}
+               style={getListStyle(snapshot.isDraggingOver)}>
           <MarketsList markets={Items} />
+          </div>
         </div>
       )}
     </Droppable>
