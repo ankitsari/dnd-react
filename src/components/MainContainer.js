@@ -9,6 +9,7 @@ const grid = 8;
 const getListStyle = isDraggingOver => ({
   background: isDraggingOver ? '#6b879e' : '',
   padding: grid,
+  flex: 1,
 });
 
 const MainContainer = ({bucket: {BucketId, Items, Description}}) => {
