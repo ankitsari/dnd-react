@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import {Draggable} from 'react-beautiful-dnd';
 import ReactTooltip from 'react-tooltip';
+import common from '../utils/common'
 import _ from 'lodash'
 const grid = 8;
 
@@ -43,7 +44,7 @@ const MarketCard = ({bucketItem: {ItemTitle, Description, ItemId, Priority, Mock
                     <h4 className="card-title">{ItemTitle}</h4>
                     <p className="card-text">{Description}</p>
                     <p className="card-text">{Priority}</p>
-                    <p className="card-text">{MockUpLink}</p>
+                    <p className="card-text">{MockUpLink && <span dangerouslySetInnerHTML={{__html:common.linkify(MockUpLink)}}></span>}</p>
                   </div>
                 </div>
               </ReactTooltip>
