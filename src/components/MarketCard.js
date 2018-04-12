@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import {Draggable} from 'react-beautiful-dnd';
+import ReactTooltip from 'react-tooltip';
 import _ from 'lodash'
 const grid = 8;
 
@@ -31,12 +32,24 @@ const MarketCard = ({bucketItem: {ItemTitle, Description, ItemId, Priority, Mock
                    provided2.draggableProps.style
                  )}
                  className="ui card"
+                 data-event='click'
+                 data-event-off="mouseout"
+                 data-tip
+                 data-for={`t${ItemId}`}
             >
-              <div className="card-block">
-              <h4 className="card-title" style={{fontSize: '11px'}}>{ItemTitle}</h4>
-              <p className="card-text" style={{overflow: 'hidden', fontSize: '11px'}}>{Description}</p>
-              <p className="card-text" style={{overflow: 'hidden', fontSize: '11px'}}>{Priority}</p>
-              <p className="card-text" style={{overflow: 'hidden', fontSize: '11px'}}>{MockUpLink}</p>
+              <ReactTooltip class='toolTipClass' id={`t${ItemId}`} scrollHide={true} delayHide={100} effect='solid'>
+                <div className="ui card">
+                  <div className="card-block">
+                    <h4 className="card-title">{ItemTitle}</h4>
+                    <p className="card-text">{Description}</p>
+                    <p className="card-text">{Priority}</p>
+                    <p className="card-text">{MockUpLink}</p>
+                  </div>
+                </div>
+              </ReactTooltip>
+              <div className="card-block block">
+                <h4 className="card-title">{ItemTitle}</h4>
+                <p className="card-text">{Description}</p>
               </div>
             </div>
           {provided2.placeholder}

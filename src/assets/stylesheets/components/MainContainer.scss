@@ -17,4 +17,37 @@
       font-size: 26px;
     }
   }
+
+  .toolTipClass {
+    pointer-events: inherit;
+    padding: 5px;
+    color: inherit;
+    opacity: 1;
+
+    &:hover {
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+  }
+
+  .card {
+    .card-block {
+      .card-title {
+        font-size: 11px;
+      }
+
+      .card-text {
+        font-size: 11px;
+        overflow: hidden;
+      }
+
+      &.block {
+        .card-text {
+          height: 58px;
+        }
+      }
+    }
+
+  }
+
 }
