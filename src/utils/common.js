@@ -1,5 +1,6 @@
 const common = {
   linkify(inputText) {
+    /* eslint-disable no-useless-escape */
     try {
       let replacedText, replacePattern1, replacePattern2, replacePattern3;
 
@@ -21,6 +22,7 @@ const common = {
       return inputText
     }
   }
+  /* eslint-enable no-useless-escape */
 }
 
 export default common

@@ -4,8 +4,8 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import {DragDropContext} from 'react-beautiful-dnd';
 import { fetchComponents, updateComponents } from '../actions/marketsActions';
-import '../assets/stylesheets/components/HomePage.css';
 import MainContainer from './MainContainer';
+import '../assets/stylesheets/components/HomePage.css';
 
 const reorderBucket = ({ components, source, destination }) => {
   const current = components.find(x=>x.BucketId === parseInt(source.droppableId, 10));
@@ -68,16 +68,18 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 class HomePage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      components: []
-    };
-    this.onDragEnd = this.onDragEnd.bind(this);
+
+  state = {
+    loading: true,
+    components: []
   }
 
-  onDragEnd(result) {
+  static propTypes = {
+    components: PropTypes.array.isRequired,
+    fetchComponents: PropTypes.func.isRequired
+  }
+
+  onDragEnd = (result) => {
 
     if (!result.destination) {
       return;
@@ -167,11 +169,6 @@ class HomePage extends React.Component {
 
     );
   }
-}
-
-HomePage.propTypes = {
-  components: PropTypes.array.isRequired,
-  fetchComponents: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {

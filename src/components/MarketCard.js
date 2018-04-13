@@ -3,21 +3,14 @@ import PropTypes from 'prop-types'
 import {Draggable} from 'react-beautiful-dnd';
 import ReactTooltip from 'react-tooltip';
 import common from '../utils/common'
-import _ from 'lodash'
 const grid = 8;
 
-const getItemStyle = (isDragging, draggableStyle) => {
-
-  let style = {
+const getItemStyle = (isDragging, draggableStyle) => ({
     padding: grid * 2,
     margin: `0 16px 0 0`,
     background: isDragging ? 'lightgreen' : '',
-  }
-
-  _.assign(style, draggableStyle)
-
-  return style
-};
+    ...draggableStyle,
+});
 
 const MarketCard = ({bucketItem: {ItemTitle, Description, ItemId, Priority, MockUpLink}, index}) => {
   return (
